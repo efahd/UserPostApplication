@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Your Dashboard</h2>
+<a href="{{ url_for('main.new_post') }}">Create New Post</a>
+<ul>
+    {% for post in posts %}
+    <li>
+        <a href="{{ url_for('main.show_post', post_id=post.id) }}">{{ post.title }}</a>
+        ({{ post.date_posted }})
+        <form style="display:inline;" method="POST" action="{{ url_for('main.delete_post', post_id=post.id) }}">
+            <button type="submit">Delete</button>
+        </form>
+        <a href="{{ url_for('main.edit_post', post_id=post.id) }}">Edit</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

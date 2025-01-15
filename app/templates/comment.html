@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Leave a Comment</h2>
+<form method="POST">
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.content.label }}<br>
+        {{ form.content(rows=2, cols=40) }}<br>
+        {{ form.content.errors }}
+    </p>
+    <p>{{ form.submit() }}</p>
+</form>
+{% endblock %}

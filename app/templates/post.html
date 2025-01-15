@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if post %}
+<!-- Show post details -->
+<h2>{{ post.title }}</h2>
+<p>{{ post.content }}</p>
+<h3>Comments:</h3>
+<ul>
+    {% for comment in comments %}
+    <li>{{ comment.content }} ({{ comment.date_commented }})</li>
+    {% endfor %}
+</ul>
+<form method="POST" action="{{ url_for('main.comment_post', post_id=post.id) }}">
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.content.label }}<br>
+        {{ form.content(rows=2, cols=40) }}<br>
+        {{ form.content.errors }}
+    </p>
+    <p>{{ form.submit() }}</p>
+</form>
+{% else %}
+<!-- Creating or editing post -->
+<h2>{{ title if title else 'Create Post' }}</h2>
+<form method="POST">
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.title.label }}<br>
+        {{ form.title(size=40) }}<br>
+        {{ form.title.errors }}
+    </p>
+    <p>
+        {{ form.content.label }}<br>
+        {{ form.content(rows=4, cols=40) }}<br>
+        {{ form.content.errors }}
+    </p>
+    <p>{{ form.submit() }}</p>
+</form>
+{% endif %}
+{% endblock %}
